@@ -1,0 +1,25 @@
+img {
+  margin-top: 100px;
+}
+
+body {
+  text-align: center;
+  background-color: white;
+}
+
+button {
+  font-size: 0.8em;
+  font-weight: bold;
+  padding: 10px;
+  background-color: #EFFAF3;
+  border: 1px solid #EFFAF3;
+}
+
+.textfield {
+  font-size: 1.6em;
+  width: 500px;
+  margin-bottom: 20px;
+  background-repeat: no-repeat;
+  background-position: right;
+  border: 4px solid orange;
+}

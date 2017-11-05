@@ -1,0 +1,27 @@
+{
+  "name": "revapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mjspitzfaden/reviewApp.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mjspitzfaden/reviewApp/issues"
+  },
+  "homepage": "https://github.com/mjspitzfaden/reviewApp#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "ejs": "^2.5.7",
+    "express": "^4.16.2",
+    "hbs": "^4.0.1",
+    "nodemon": "^1.12.1",
+    "pg-promise": "^7.2.1"
+  }
+}
