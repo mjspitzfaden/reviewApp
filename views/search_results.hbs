@@ -8,10 +8,11 @@
 <h1 id = list>Restaurant List</h1>
 <div id = "box" box-align center>
 
-  <ul>
+  
     {{#each results}}
       <li>
-        {{id}}&nbsp{{name}}&nbsp{{address}}&nbsp{{category}}
+          <a href="/restaurant/{{id}}">{{name}}</a>
+        {{address}}&nbsp{{category}}
       </li>
     {{/each}}
   </ul>

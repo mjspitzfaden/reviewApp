@@ -40,24 +40,22 @@ db.any(`SELECT * from restaurant WHERE restaurant.id = '${term}'`)
 .catch(next);
 });
 
+app.post('/submit_review/:id', function(req, resp, next) {
+  var restaurantId = req.params.id;
+  console.log('restaurant ID', restaurantId);
+  console.log('from the form', req.body);
+  db.none(`insert into review values
+    (default, NULL, ${req.body.stars}, '${req.body.title}', '${req.body.review}', ${restaurantId})`)
+    .then(function() {
+      resp.redirect(`/restaurant/${restaurantId}`);
+    })
+    .catch(next);
+});
 
 app.get('/search/:search_term?', function (request, response) {
   let term = request.params.search_term
   response.send("This is the page for the search " + term);
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 app.get('*', function(request, response) {
 response.send("ERROR 404 PAGE NOT FOUND");
