@@ -1,5 +1,6 @@
 var express = require('express');
 const bodyParser = require('body-parser')
+const Promise = require('bluebird');
 var pgp = require('pg-promise')({
   // initialization options
 });
@@ -16,24 +17,32 @@ app.get('/', function (request, response) {
   response.render('search_form.hbs');
 });
 
-app.get('/search', function (request, response) {
-  var term = request.query.searchTerm
+app.get('/search', function (request, response, next) {
+  let term = request.query.searchTerm
   console.log('Term:', term);
   db.any(`SELECT * from restaurant WHERE restaurant.name ilike '%${term}%'`)
   .then(function (results) {
-    response.render('search_results.hbs', {results: results});
-    console.log('results', results);
+    response.render('search_results.hbs', {results: results
   });
+  })
+  .catch(next);
 });
 
-app.get('/restaurant/:id', function (request, response) {
-  var term = request.params.id
-
-  response.render('restaurant.hbs');
+app.get('/restaurant/:id?', function (request, response, next) {
+  let term = request.params.id
+  console.log('Term:', term);
+db.any(`SELECT * from restaurant WHERE restaurant.id = '${term}'`)
+.then(function (results) {
+  response.render('restaurant.hbs', {results: results
 });
+    console.log(results)
+})
+.catch(next);
+});
+
 
 app.get('/search/:search_term?', function (request, response) {
-  var term = request.params.search_term
+  let term = request.params.search_term
   response.send("This is the page for the search " + term);
 });
 

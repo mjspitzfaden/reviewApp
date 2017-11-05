@@ -1,0 +1,32 @@
+body {
+  background-color: blue;
+  background-repeat: no-repeat;
+  background-size: 150%;
+
+}
+
+h1 {
+  color: white;
+  text-align: center;
+}
+
+p {
+    color: white;
+    text-align: center;
+}
+
+#list {
+  color: white;
+  text-align: center;
+}
+
+ #box {
+   background-color: black;
+   border: 6px solid lightgreen;
+   padding: 25px;
+   margin: 9%;
+   width: 10%
+   border: center;
+   margin: center;
+   color: white;
+ }

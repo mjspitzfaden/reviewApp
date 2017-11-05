@@ -1,11 +1,24 @@
-<h1>Results</h1>
-<ul>
-  {{#each results}}
-    <li>
-      {{id}}<br>
-      {{name}}<br>
-      {{address}}<br>
-      {{category}}
-    </li>
-  {{/each}}
-</ul>
+
+<html>
+<title>Results</title>
+<!-- Required meta tags -->
+<div class = "results">
+  <body background ="./feedme.png" class="img-fluid" alt="Responsive image">
+</div>
+<h1 id = list>Restaurant List</h1>
+<div id = "box" box-align center>
+
+  <ul>
+    {{#each results}}
+      <li>
+        {{id}}&nbsp{{name}}&nbsp{{address}}&nbsp{{category}}
+      </li>
+    {{/each}}
+  </ul>
+
+</div>
+
+    <p>
+</body>
+
+</html>
