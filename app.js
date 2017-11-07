@@ -25,6 +25,7 @@ function create_hash (password) {
 }
 
 function check_pass (stored_pass, password){
+  console.log(stored_pass);
   var pass_parts = stored_pass.split('$');
   var key = pbkdf2.pbkdf2Sync( // make new hash
     password,
@@ -52,16 +53,20 @@ app.post('/', function (request, response, next) {
   let user = request.body.enteremail;
   console.log('password', password);
   console.log('user', user);
-  db.any(`SELECT reviewer.password from reviewer WHERE reviewer.email = '%${user}%'`)
+  db.one(`SELECT reviewer.password from reviewer WHERE reviewer.email = '${user}'`)
   .then(function (results) {
-    if (check_pass(results, password)){
-    response.render('login.hbs')
+    console.log(results);
+    if (check_pass(results.password, password)){
+      response.render('search_form.hbs')
   }
     else{
-    response.render('search_form.hbs')
+      let error = "incorrect password";
+    response.render('login.hbs', {error:error})
   }
   })
-  .catch(next);
+  .catch(function(err){let error = "no account found please signup";
+response.render('login.hbs', {error:error})
+})
 });
 
 
@@ -97,9 +102,21 @@ app.get('/search', function (request, response, next) {
 app.get('/restaurant/:id?', function (request, response, next) {
   let term = request.params.id
   console.log('Term:', term);
-db.any(`SELECT * from restaurant WHERE restaurant.id = '${term}'`)
+db.any(`SELECT
+      restaurant.name as restaurant_name,
+      restaurant.address,
+      restaurant.category,
+      reviewer.name,
+      review.title,
+      review.stars,
+      review.review from restaurant
+      left outer join
+      review on review.restaurant_id = restaurant.id
+      left outer join
+      reviewer on review.reviewer_id = reviewer.id
+      WHERE restaurant.id = $1;`, term)
 .then(function (results) {
-  response.render('restaurant.hbs', {results: results
+  response.render('restaurant.hbs', {first: results[0], results: results
 });
     console.log(results)
 })

@@ -5,15 +5,20 @@
 <div class = "results">
   <body background ="/static/good.jpg" class="img-fluid" alt="Responsive image">
 <h1 id = list>Restaurant List</h1>
-
+<h1>{{first.restaurant_name}}</h1>
+<p>Address: {{first.address}}</p>
+<p>Category: {{first.category}}</p>
   {{#each results}}
+  <h1>{{name}}</h1>
+<h1>{{title}}</h1>
+<p>Stars: {{stars}}</p>
+<p>Review: {{review}}</p>
+  {{/each}}
+
   <h1>{{id}}</h1>
-<h1>{{name}}</h1>
-<p>Address: {{address}}</p>
-<p>Category: {{category}}</p>
+
 <h2>Write Your Own Review</h2>
 <form action="/submit_review/{{id}}" method="POST">
-  {{/each}}
   <label>Title: </label><br>
   <input type="text" name="title"><br>
   <label>Stars:</label>
