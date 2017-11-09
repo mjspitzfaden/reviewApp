@@ -13,8 +13,8 @@ const db = pgp({
 });
 var pbkdf2 = require('pbkdf2');
 var crypto = require('crypto');
-var UserName = "NOT LOGGED IN"
-
+var UserName = "NOT LOGGED IN";
+var UserId = "NOT LOGGED IN";
 
 function create_hash (password) {
   var salt = crypto.randomBytes(20).toString('hex');
@@ -55,10 +55,12 @@ app.post('/', function (request, response, next) {
   let user = request.body.enteremail;
   console.log('password', password);
   console.log('user', user);
-  db.one(`SELECT reviewer.password, reviewer.name from reviewer WHERE reviewer.email = '${user}'`)
+  db.one(`SELECT reviewer.password, reviewer.name, reviewer.id from reviewer WHERE reviewer.email = '${user}'`)
   .then(function (results) {
     console.log(results.name);
+    console.log(results.id);
     UserName = results.name;
+    UserId = results.id;
     if (check_pass(results.password, password)){
       response.render('search_form.hbs')
   }
@@ -99,6 +101,24 @@ app.get('/search', function (request, response, next) {
   })
   .catch(next);
 });
+app.get('/restaurant/new', function (request, response) {
+  response.render('res_form.hbs', {title: 'restaurant entry'});
+});
+
+app.post('/restaurant/submit_new', function (request, response, next) {
+  console.log('from the form', request.body);
+  let query = `insert into restaurant values
+    (default, $1, $2, $3) RETURNING id`
+  let values = [request.body.name, request.body.address, request.body.category]
+  console.log(values)
+  db.one(query, values)
+    .then(function(id) {
+      console.log(id);
+      response.redirect(`/restaurant/${id.id}`);
+      })
+      .catch(next);
+  });
+
 
 app.get('/restaurant/:id?', function (request, response, next) {
   let term = request.params.id
@@ -129,13 +149,19 @@ app.post('/submit_review/:id', function(req, resp, next) {
   var restaurantId = req.params.id;
   console.log('restaurant ID', restaurantId);
   console.log('from the form', req.body);
-  db.none(`insert into review values
-    (default, ${req.body.name}, ${req.body.stars}, '${req.body.title}', '${req.body.review}', ${restaurantId})`)
+  console.log('username', UserName);
+  console.log('userid', UserId, typeof(UserId));
+  let query = `insert into review values
+    (default, ${UserId}, ${req.body.stars}, '${req.body.title}', '${req.body.review}', ${restaurantId})`
+    console.log(query)
+  db.none(query)
     .then(function() {
       resp.redirect(`/restaurant/${restaurantId}`);
     })
     .catch(next);
 });
+
+
 
 app.get('/search/:search_term?', function (request, response) {
   let term = request.params.search_term
