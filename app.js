@@ -13,6 +13,8 @@ const db = pgp({
 });
 var pbkdf2 = require('pbkdf2');
 var crypto = require('crypto');
+var UserName = "NOT LOGGED IN"
+
 
 function create_hash (password) {
   var salt = crypto.randomBytes(20).toString('hex');
@@ -53,9 +55,10 @@ app.post('/', function (request, response, next) {
   let user = request.body.enteremail;
   console.log('password', password);
   console.log('user', user);
-  db.one(`SELECT reviewer.password from reviewer WHERE reviewer.email = '${user}'`)
+  db.one(`SELECT reviewer.password, reviewer.name from reviewer WHERE reviewer.email = '${user}'`)
   .then(function (results) {
-    console.log(results);
+    console.log(results.name);
+    UserName = results.name;
     if (check_pass(results.password, password)){
       response.render('search_form.hbs')
   }
@@ -69,13 +72,11 @@ response.render('login.hbs', {error:error})
 })
 });
 
-
-
 app.post('/signup', function (request, response, next) {
    let password = create_hash(request.body.password);
    console.log(password);
   db.none("insert into reviewer values \
-    (default, $1, $2, NULL, $3)", [request.body.name, request.body.email, password])
+    (default, $1, $2, NULL, $3)", [request.body.first, request.body.email, password])
     .then(function() {
       response.redirect(`/`)    })
     .catch(next);
@@ -109,6 +110,7 @@ db.any(`SELECT
       reviewer.name,
       review.title,
       review.stars,
+      reviewer.id,
       review.review from restaurant
       left outer join
       review on review.restaurant_id = restaurant.id
@@ -116,7 +118,7 @@ db.any(`SELECT
       reviewer on review.reviewer_id = reviewer.id
       WHERE restaurant.id = $1;`, term)
 .then(function (results) {
-  response.render('restaurant.hbs', {first: results[0], results: results
+  response.render('restaurant.hbs', {first: results[0], results: results, id: term
 });
     console.log(results)
 })
@@ -128,7 +130,7 @@ app.post('/submit_review/:id', function(req, resp, next) {
   console.log('restaurant ID', restaurantId);
   console.log('from the form', req.body);
   db.none(`insert into review values
-    (default, NULL, ${req.body.stars}, '${req.body.title}', '${req.body.review}', ${restaurantId})`)
+    (default, ${req.body.name}, ${req.body.stars}, '${req.body.title}', '${req.body.review}', ${restaurantId})`)
     .then(function() {
       resp.redirect(`/restaurant/${restaurantId}`);
     })
@@ -144,6 +146,7 @@ app.get('*', function(request, response) {
 response.send("ERROR 404 PAGE NOT FOUND");
 });
 
+var PORT = process.env.PORT || 8000;
 app.listen(8000, function () {
   console.log('Listening on port 8000');
 });
