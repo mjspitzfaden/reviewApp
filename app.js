@@ -4,10 +4,14 @@ const Promise = require('bluebird');
 var pgp = require('pg-promise')({
   // initialization options
 });
+var morgan = require('morgan');
+
 var app = express();
 app.set('view engine', 'hbs');
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use('/static', express.static('public'))
+app.use(morgan('dev'));
+
 const db = pgp({
   database: 'restaurant'
 });
