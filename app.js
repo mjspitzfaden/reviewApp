@@ -177,6 +177,6 @@ response.send("ERROR 404 PAGE NOT FOUND");
 });
 
 var PORT = process.env.PORT || 8000;
-app.listen(8000, function () {
+app.listen(PORT, function () {
   console.log('Listening on port 8000');
 });
