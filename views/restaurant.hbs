@@ -1,22 +1,8 @@
 <!-- <link href="../styles.css" rel="stylesheet" type="text/css"> -->
 
 <!-- Required meta tags -->
-
 <div class = "results">
-  <body background ="/static/good.jpg" class="img-fluid1" alt="Responsive image">
-<h1 id = list>Restaurant List</h1>
-<h1>{{first.restaurant_name}}</h1>
-<p>Address: {{first.address}}</p>
-<p>Category: {{first.category}}</p>
-  {{#each results}}
-  <h1>{{name}}</h1>
-<h1>{{title}}</h1>
-<p>Stars: {{stars}}</p>
-<p>Review: {{review}}</p>
-<p>Review id: {{id}}</p>
-  {{/each}}
-
-
+<body background ="/static/" class="img-fluid1" alt="Responsive image">
 <h2>Write Your Own Review</h2>
 <form action="/submit_review/{{id}}" method="POST">
   <label>Title: </label><br>
@@ -33,5 +19,17 @@
   <textarea name="review" cols="40" rows="6"></textarea><br>
   <button type="submit">Submit</button>
 </form>
+<h1 id = list>Restaurant List</h1>
+<h1>{{first.restaurant_name}}</h1>
+<p>Address: {{first.address}}</p>
+<p>Category: {{first.category}}</p>
+  {{#each results}}
+  <h1>{{name}}</h1>
+<h1>{{title}}</h1>
+<p>Stars: {{stars}}</p>
+<p>Review: {{review}}</p>
+<p>Review id: {{id}}</p>
+  {{/each}}
+
 </body>
 </div>

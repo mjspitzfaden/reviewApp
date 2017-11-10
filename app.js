@@ -51,7 +51,9 @@ function check_pass (stored_pass, password){
 }
 
 app.get('/', function (request, response) {
-  response.render('login.hbs');
+  console.log("hey");
+  response.render('login1.hbs');
+
 });
 
 app.post('/', function (request, response, next) {
@@ -70,11 +72,11 @@ app.post('/', function (request, response, next) {
   }
     else{
       let error = "incorrect password";
-    response.render('login.hbs', {error:error})
+    response.render('login1.hbs', {error:error})
   }
   })
   .catch(function(err){let error = "no account found please signup";
-response.render('login.hbs', {error:error})
+response.render('login1.hbs', {error:error})
 })
 });
 
@@ -164,6 +166,7 @@ app.post('/submit_review/:id', function(req, resp, next) {
     })
     .catch(next);
 });
+
 
 
 
