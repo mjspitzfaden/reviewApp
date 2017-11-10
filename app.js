@@ -5,12 +5,19 @@ var pgp = require('pg-promise')({
   // initialization options
 });
 var morgan = require('morgan');
-
+var session = require('express-session');
+var error = "no account found please signup";
 var app = express();
 app.set('view engine', 'hbs');
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use('/static', express.static('public'))
 app.use(morgan('dev'));
+app.use(session({
+  secret: process.env.SECRET_KEY || 'dev',
+  resave: true,
+  saveUninitialized: false,
+  cookie: {maxAge: 60000 * 60 * 24}
+}));
 
 const db = pgp({
   database: 'restaurant'
@@ -51,7 +58,7 @@ function check_pass (stored_pass, password){
 }
 
 app.get('/', function (request, response) {
-  console.log("hey");
+  console.log(request.session.user);
   response.render('login1.hbs');
 
 });
@@ -68,6 +75,7 @@ app.post('/', function (request, response, next) {
     UserName = results.name;
     UserId = results.id;
     if (check_pass(results.password, password)){
+      request.session.user = results;
       response.render('search_form.hbs')
   }
     else{
@@ -75,7 +83,7 @@ app.post('/', function (request, response, next) {
     response.render('login1.hbs', {error:error})
   }
   })
-  .catch(function(err){let error = "no account found please signup";
+  .catch(function(err){
 response.render('login1.hbs', {error:error})
 })
 });
@@ -92,23 +100,38 @@ app.post('/signup', function (request, response, next) {
 });
 
 
-app.get('/search/res', function (request, response) {
+app.get('/search/res', function (request, response, next) {
+  if (request.session.user)
+  {
   response.render('search_form.hbs');
+  }
+  else
+  {
+  let error = "user not logged in";
+  response.render('login1.hbs', {error:error})
+  }
 });
 
 
 app.get('/search', function (request, response, next) {
-  let term = request.query.searchTerm
-  console.log('Term:', term);
-  db.any(`SELECT * from restaurant WHERE restaurant.name ilike '%${term}%'`)
-  .then(function (results) {
-    response.render('search_results.hbs', {results: results
-  });
-  })
-  .catch(next);
+  if (request.session.user) {
+    let term = request.query.searchTerm
+    db.any(`SELECT * from restaurant WHERE restaurant.name ilike '%${term}%'`)
+    .then(function (results) {
+      response.render('search_results.hbs', {results: results});
+    })
+    .catch(next)
+  }
+  else {
+    response.render('login1.hbs', {error:error})
+    }
 });
+
+
 app.get('/restaurant/new', function (request, response) {
+
   response.render('res_form.hbs', {title: 'restaurant entry'});
+
 });
 
 app.post('/restaurant/submit_new', function (request, response, next) {
@@ -152,19 +175,22 @@ db.any(`SELECT
 });
 
 app.post('/submit_review/:id', function(req, resp, next) {
+  if (req.session.user) {
   var restaurantId = req.params.id;
   console.log('restaurant ID', restaurantId);
   console.log('from the form', req.body);
   console.log('username', UserName);
   console.log('userid', UserId, typeof(UserId));
   let query = `insert into review values
-    (default, ${UserId}, ${req.body.stars}, '${req.body.title}', '${req.body.review}', ${restaurantId})`
+    (default, ${req.session.user}, ${req.body.stars}, '${req.body.title}', '${req.body.review}', ${restaurantId})`
     console.log(query)
   db.none(query)
     .then(function() {
       resp.redirect(`/restaurant/${restaurantId}`);
     })
     .catch(next);
+                            }
+  else{resp.render('login1.hbs', {error:error})}
 });
 
 

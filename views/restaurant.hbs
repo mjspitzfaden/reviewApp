@@ -19,17 +19,23 @@
   <textarea name="review" cols="40" rows="6"></textarea><br>
   <button type="submit">Submit</button>
 </form>
-<h1 id = list>Restaurant List</h1>
-<h1>{{first.restaurant_name}}</h1>
-<p>Address: {{first.address}}</p>
-<p>Category: {{first.category}}</p>
-  {{#each results}}
-  <h1>{{name}}</h1>
-<h1>{{title}}</h1>
-<p>Stars: {{stars}}</p>
-<p>Review: {{review}}</p>
-<p>Review id: {{id}}</p>
-  {{/each}}
+<div class="form_div">
+    <h1 id = list>Restaurant Reviews</h1>
+    <div class="container-fluid" style="border:4px solid green;">
+    <h5>Name: {{first.restaurant_name}}</h5>
+    <p>Address: {{first.address}}</p>
+    <p>Category: {{first.category}}</p>
 
-</body>
+        {{#each results}}
+        <div class="container-fluid" style="border:2px solid green;">
+        <p>Reviewer Name: {{name}}</p>
+        <h5>Title: {{title}}</h5>
+        <p>Stars: {{stars}}</p>
+        <p>Review: {{review}}</p>
+        </div>
+        {{/each}}
+
+  </div>
 </div>
+</div>
+</body>
