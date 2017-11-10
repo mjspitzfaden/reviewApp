@@ -34,11 +34,10 @@ p {
    background-color: black;
    border: 6px solid lightgreen;
    padding: 25px;
-   margin: 9%;
-   width: 10%
-   border: center;
-   margin: center;
+   width: 30%;
    color: white;
+   margin: auto;
+   margin-top:8%;
  }
 
  img {
