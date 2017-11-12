@@ -181,10 +181,12 @@ app.post('/submit_review/:id', function(req, resp, next) {
   console.log('from the form', req.body);
   console.log('username', UserName);
   console.log('userid', UserId, typeof(UserId));
+  console.log('SESSION',req.session.user);
   let query = `insert into review values
-    (default, ${req.session.user}, ${req.body.stars}, '${req.body.title}', '${req.body.review}', ${restaurantId})`
+    (default, $1, $2, $3, $4, $5)`
     console.log(query)
-  db.none(query)
+  let values = [req.session.user.id, req.body.stars, req.body.title, req.body.review, restaurantId]
+  db.none(query, values)
     .then(function() {
       resp.redirect(`/restaurant/${restaurantId}`);
     })
