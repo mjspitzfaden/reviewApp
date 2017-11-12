@@ -2,7 +2,7 @@
 
 <!-- Required meta tags -->
 <div class = "results">
-<body background ="/static/" class="img-fluid1" alt="Responsive image">
+<body background ="/static/add.png" class="img-fluid" alt="Responsive image">
 <h2>Write Your Own Review</h2>
 <form action="/submit_review/{{id}}" method="POST">
   <label>Title: </label><br>
@@ -19,7 +19,8 @@
   <textarea name="review" cols="40" rows="6"></textarea><br>
   <button type="submit">Submit</button>
 </form>
-<div class="form_div">
+</div>
+<div class="newform_div">
     <h1 id = list>Restaurant Reviews</h1>
     <div class="container-fluid" style="border:4px solid green;">
     <h5>Name: {{first.restaurant_name}}</h5>
@@ -36,6 +37,5 @@
         {{/each}}
 
   </div>
-</div>
 </div>
 </body>

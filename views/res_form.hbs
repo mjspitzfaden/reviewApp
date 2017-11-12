@@ -1,6 +1,6 @@
 <body>
 <h2> Please enter a new restaurant.</h2>
-
+<body background ="/static/add.png" class="img-fluid" alt="Responsive image">
 <div class = "box" box-align center>
   <form action="/restaurant/submit_new" method="POST">
     Restaurant name:<br>
@@ -8,8 +8,16 @@
     address: <br>
     <input type="text" name="address"><br>
     category: <br>
-    <input type="text" name="category"> <br>
-    <button type="submit"> Submit </button>
+    <select id=category name="category">
+      <option value="Seafood">Seafood</option>
+      <option value="American">American</option>
+      <option value="Italian">Italian</option>
+      <option value="Mexican">Mexican</option>
+      <option value="Fast Food">Fast Food</option>
+      <option value="Soul Food">Fast Food</option>
+      <option value="Other">Fast Food</option>
+    </select><br>
+    <button id = resbutton type="submit"> Submit </button>
   </form>
 </div>
 </body>

@@ -1,10 +1,11 @@
-
-
+#category{
+  margin-bottom: 10px;
+}
 
 .img-fluid{
   background-color: blue;
-  background-repeat: no-repeat;
-  background-size: 150%;
+  background-repeat: repeat;
+  background-size: 100%;
 
 }
 
@@ -95,6 +96,13 @@ p {
 #wrapper h1 p
 {
 font-size:18px;
+}
+.newform_div{
+width: 330px;
+margin-top: 3%;
+margin-left: 41.5%;
+padding: 12px;
+background-color: red;
 }
 .form_div
 {
