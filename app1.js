@@ -21,7 +21,7 @@ app.use(session({
   cookie: {maxAge: 60000 * 60 * 24}
 }));
 
-const db = pgp({
+const db = pgp(process.env.DATABASE_URL || {
   database: 'restaurant'
 });
 var pbkdf2 = require('pbkdf2');
@@ -194,7 +194,7 @@ db.any(`SELECT
       reviewer on review.reviewer_id = reviewer.id
       WHERE restaurant.id = $1;`, term)
 .then(function (results) {
-  response.render('restaurant1.hbs', {first: results[0], results: results, id: term
+  response.render('restaurant1.hbs', {first: results[0], results: results, id: term, username:request.session.user.name
 });
     console.log(results)
 })
