@@ -28,6 +28,7 @@
     "nodemon": "^1.12.1",
     "pbkdf2": "^3.0.14",
     "pbkdf2-helpers": "^1.1.1",
-    "pg-promise": "^7.2.1"
+    "pg-promise": "^7.2.1",
+    "socket.io": "^2.0.4"
   }
 }
