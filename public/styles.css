@@ -1,3 +1,13 @@
+
+.revForm{
+  padding-bottom: 30%;
+}
+
+
+.results{
+  text-align: center;
+}
+
 #category{
   margin-bottom: 10px;
 }
@@ -98,11 +108,12 @@ p {
 font-size:18px;
 }
 .newform_div{
-width: 330px;
+
 margin-top: 3%;
-margin-left: 41.5%;
-padding: 12px;
-background-color: red;
+padding: 6px;
+background-color: #a57f10;
+width: 500px;
+margin: 0 auto;
 }
 .form_div
 {
@@ -144,113 +155,102 @@ font-weight:bold;
 
 @media only screen and (min-width:700px) and (max-width:995px)
 {
-#wrapper
-{
-width:100%;
-}
-#wrapper h1
-{
-font-size:30px;
-}
-.form_div
-{
-width:50%;
-margin-left:25%;
-padding-left:0px;
-padding-right:0px;
-}
-.form_div input[type="text"],input[type="password"]
-{
-width:80%;
-}
-.form_div textarea
-{
-width:80%;
-}
-.form_div input[type="submit"]
-{
-width:80%;
-}
+  #wrapper
+  {
+  width:100%;
+  }
+  #wrapper h1
+  {
+  font-size:30px;
+  }
+  .form_div
+  {
+  width:50%;
+  margin-left:25%;
+  padding-left:0px;
+  padding-right:0px;
+  }
+  .form_div input[type="text"],input[type="password"]
+  {
+  width:80%;
+  }
+  .form_div textarea
+  {
+  width:80%;
+  }
+  .form_div input[type="submit"]
+  {
+  width:80%;
+  }
 }
 @media only screen and (min-width:400px) and (max-width:699px)
 {
-#wrapper
-{
-width:100%;
-}
-#wrapper h1
-{
-font-size:30px;
-}
-.form_div
-{
-width:60%;
-margin-left:20%;
-}
-.form_div input[type="text"],input[type="password"]
-{
-width:80%;
-}
-.form_div input[type="submit"]
-{
-width:80%;
-}
+  #wrapper
+  {
+  width:100%;
+  }
+  #wrapper h1
+  {
+  font-size:30px;
+  }
+  .form_div
+  {
+  width:60%;
+  margin-left:20%;
+  }
+  .form_div input[type="text"],input[type="password"]
+  {
+  width:80%;
+  }
+  .form_div input[type="submit"]
+  {
+  width:80%;
+  }
 }
 @media only screen and (min-width:100px) and (max-width:399px)
 {
-#wrapper
-{
-width:100%;
-}
-#wrapper h1
-{
-font-size:25px;
-}
-.form_div
-{
-width:90%;
-margin-left:5%;
-padding-left:0px;
-padding-right:0px;
-}
-.form_div input[type="text"],input[type="password"]
-{
-width:80%;
-}
-.form_div input[type="submit"]
-{
-width:80%;
-}
+  #wrapper
+  {
+  width:100%;
+  }
+  #wrapper h1
+  {
+  font-size:25px;
+  }
+  .form_div
+  {
+  width:90%;
+  margin-left:5%;
+  padding-left:0px;
+  padding-right:0px;
+  }
+  .form_div input[type="text"],input[type="password"]
+  {
+  width:80%;
+  }
+  .form_div input[type="submit"]
+  {
+  width:80%;
+  }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-body{
-    font-family: 'Nunito';
 }
 
-h2{
-    font-size: 18px;
-    padding: 10px 20px;
-    color: #575ed8;
-}
+
+
+
+
+
+
+
+
+
 
 #mario-chat{
     max-width: 600px;
-    margin: 30px auto;
-    border: 1px solid #ddd;
+    margin: auto;
     box-shadow: 1px 3px 5px rgba(0,0,0,0.05);
     border-radius: 2px;
+    padding-bottom: 30%;
 }
 
 #chat-window{
@@ -276,13 +276,8 @@ h2{
     color: #575ed8;
 }
 
-label{
-    box-sizing: border-box;
-    display: block;
-    padding: 10px 20px;
-}
 
-input{
+#message{
     padding: 10px 20px;
     box-sizing: border-box;
     background: #eee;
@@ -295,7 +290,20 @@ input{
     font-size: 16px;
 }
 
-button{
+#handle{
+    padding: 10px 20px;
+    box-sizing: border-box;
+    background: #eee;
+    border: 0;
+    display: block;
+    width: 100%;
+    background: #fff;
+    border-bottom: 1px solid #eee;
+    font-family: Nunito;
+    font-size: 16px;
+}
+
+#send{
     background: #575ed8;
     color: #fff;
     font-size: 18px;
