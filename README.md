@@ -1,1 +1,3 @@
-# reviewApp
+# Resaurant Review Application
+This is a class project restaurant review application.  This project was done using the express framework.
+This is a small application will allow you to log into the site, and users that are not logged in can add new restaurants.  The second page will take you to a search engine that will allow you to search based on any word in the restaurant title.  It will then return a list of restaurants if you click on the restaurant it will bring you to a page with the reviews for each restaurant.  Included in this page is message application so users can talk about different restaurants.
